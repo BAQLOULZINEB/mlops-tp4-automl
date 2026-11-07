@@ -1,3 +1,11 @@
+"""TP4 - src/inspecter.py
+
+ROLE      : Lit le journal de FLAML pour savoir ce qu'il a VRAIMENT essaye (familles, nombre d'essais, meilleur score).
+ENTREE    : reports/flaml_60s.log
+SORTIE    : affichage : essais par famille + essai gagnant
+A RETENIR : Un modele AutoML n'est acceptable que si on peut expliquer ce qui a ete essaye.
+"""
+
 import sys
 import json
 from collections import Counter

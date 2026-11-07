@@ -1,0 +1,92 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>TP4 AutoML</title>
+<style>
+:root{--bg:#f7f8fb;--card:#fff;--ink:#1d2433;--muted:#5b6578;--line:#e3e7ef;
+--accent:#2f6fde;--accent-soft:#e8f0fd;--ok:#1f8a5b;--ok-soft:#e5f5ee;--warn:#b7791f;
+--warn-soft:#fdf3e1;--bad:#c2410c;--bad-soft:#fdebe3;--code:#f1f3f8;}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#11151d;--card:#1a202b;
+--ink:#e7ebf3;--muted:#9aa5b8;--line:#2b3342;--accent:#6ea0ff;--accent-soft:#1e2a44;--ok:#4cc38a;
+--ok-soft:#163027;--warn:#e0a84a;--warn-soft:#33281a;--bad:#f08a5d;--bad-soft:#3a2219;--code:#222a37;}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);
+font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:980px;margin:0 auto;padding:32px 16px 64px}
+header.hero{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:28px}
+.kicker{color:var(--accent);font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:13px}
+h1{font-size:clamp(26px,4vw,36px);line-height:1.2;margin:6px 0 10px}
+h2{font-size:22px;margin:40px 0 14px;padding-top:8px}
+h3{font-size:17px;margin:0 0 6px}
+p.lead{color:var(--muted);font-size:18px;margin:0}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card p{margin:4px 0 0;color:var(--muted);font-size:15px}
+.flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px;margin:12px 0}
+.step{flex:1 1 140px;background:var(--card);border:1px solid var(--line);border-top:4px solid var(--accent);
+border-radius:10px;padding:12px;min-width:130px}
+.step b{display:block;font-size:15px}.step span{color:var(--muted);font-size:13px}
+.arrow{align-self:center;color:var(--muted);font-size:22px}
+.callout{border-left:4px solid var(--accent);background:var(--accent-soft);border-radius:8px;padding:12px 16px;margin:14px 0}
+.callout.ok{border-color:var(--ok);background:var(--ok-soft)}
+.callout.warn{border-color:var(--warn);background:var(--warn-soft)}
+.callout.bad{border-color:var(--bad);background:var(--bad-soft)}
+.callout strong{display:block;margin-bottom:2px}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);
+border-radius:10px;overflow:hidden;font-size:15px}
+th,td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:var(--code);font-weight:600}td.n{text-align:right;font-variant-numeric:tabular-nums}
+.tablewrap{overflow-x:auto}
+code{background:var(--code);padding:1px 6px;border-radius:5px;font:14px ui-monospace,Consolas,monospace}
+pre{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:12px 14px;overflow-x:auto;
+font:13.5px/1.5 ui-monospace,Consolas,monospace;margin:10px 0}
+ul.check{list-style:none;padding:0;margin:0}ul.check li{padding:8px 0 8px 30px;position:relative;border-bottom:1px dashed var(--line)}
+ul.check li:before{content:"\2713";position:absolute;left:4px;color:var(--ok);font-weight:700}
+.bar{display:flex;align-items:center;gap:10px;margin:6px 0;font-size:14px}
+.bar .lbl{width:170px;flex:none;color:var(--muted)}
+.bar .track{flex:1;background:var(--code);border-radius:6px;height:20px;position:relative}
+.bar .fill{background:var(--accent);height:100%;border-radius:6px}
+.bar .fill.alt{background:var(--ok)}.bar .fill.bad{background:var(--bad)}
+.bar .val{width:70px;flex:none;text-align:right;font-variant-numeric:tabular-nums}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--accent-soft);color:var(--accent);
+font-size:13px;font-weight:600;margin:2px 4px 2px 0}
+nav.toc{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+nav.toc a{color:var(--accent);text-decoration:none;font-size:14px;border:1px solid var(--line);
+border-radius:999px;padding:3px 12px;background:var(--card)}
+footer{margin-top:48px;color:var(--muted);font-size:14px;border-top:1px solid var(--line);padding-top:14px}
+@media (max-width:560px){.arrow{transform:rotate(90deg);width:100%;text-align:center}.bar .lbl{width:110px}}
+</style></head><body><main>
+<header class="hero"><div class="kicker">TP4 - AutoML</div><h1>Explorer les plateformes AutoML et low-code</h1><p class="lead">Ce que l'AutoML automatise, ce qu'il coute, et ce qu'il ne fera jamais a ta place.</p>
+<nav class="toc"><a href="#but">Le but</a><a href="#fait">Ce qu'on a fait</a><a href="#code">Le code</a><a href="#resultats">Resultats</a><a href="#lecons">Lecons</a><a href="#pieges">Pieges</a><a href="#commandes">Commandes</a></nav></header>
+
+<h2 id="but">Le but : savoir QUAND l'AutoML se justifie</h2>
+<p>L'AutoML met en concurrence des familles de modeles et regle leurs hyperparametres dans un budget de
+temps. Le TP ne cherche pas un vainqueur, mais ce que l'automatisation fait - et ne fait pas - a ta place.</p>
+
+<h2 id="fait">Ce qu'on a fait</h2>
+<div class="flow"><div class="step"><b>References</b><span>logistique + manuel TP2</span></div><div class="arrow">&rarr;</div><div class="step"><b>FLAML x 4 budgets</b><span>10, 30, 60, 120 s</span></div><div class="arrow">&rarr;</div><div class="step"><b>Rendement</b><span>rendement.png</span></div><div class="arrow">&rarr;</div><div class="step"><b>Inspection</b><span>154 essais journalises</span></div><div class="arrow">&rarr;</div><div class="step"><b>Fuite</b><span>colonne piegee</span></div><div class="arrow">&rarr;</div><div class="step"><b>Comparatif</b><span>local vs cloud</span></div></div>
+
+<h2 id="code">Le code, fichier par fichier</h2><p>Ouvre le projet dans VS Code : chaque script commence par le meme resume (ROLE / ENTREE / SORTIE / A RETENIR). Lis-les dans cet ordre, c'est l'ordre d'execution.</p><pre>reports/flaml_*.log   -> le journal de chaque recherche (1 ligne = 1 essai)
+reports/comparatif.md -> le tableau local vs cloud</pre><div class="grid"><div class="card"><h3>1. <code>donnees.py</code></h3><p><b>Role :</b> Fabrique le jeu de 5000 transactions bancaires (synthetiques) avec une graine fixe.</p><p><b>Entree :</b> rien (tirage aleatoire avec la graine 7)</p><p><b>Sortie :</b> data/transactions.csv (5000 lignes, 568 fraudes)</p><p><b>A retenir :</b> Meme graine = memes donnees pour toute la promo : c'est la base de la reproductibilite.</p></div><div class="card"><h3>2. <code>src/references.py</code></h3><p><b>Role :</b> Calcule les 2 points de comparaison : regression logistique (simple) et foret 500/16 (reglage manuel du TP2).</p><p><b>Entree :</b> data/transactions.csv</p><p><b>Sortie :</b> 2 runs MLflow dans tp4-automl (F1 0.7407 et 0.8669)</p><p><b>A retenir :</b> Sans reference, un score d'AutoML ne veut rien dire.</p></div><div class="card"><h3>3. <code>src/automl.py</code></h3><p><b>Role :</b> Lance FLAML pendant un budget de temps donne : il essaie plusieurs familles de modeles et garde la meilleure.</p><p><b>Entree :</b> data/transactions.csv + budget en secondes (argument)</p><p><b>Sortie :</b> reports/flaml_XXs.log (tous les essais) + un run MLflow flaml-XXs</p><p><b>A retenir :</b> metric='f1' = ce qu'on optimise ; le jeu de test ne sert qu'a la fin pour juger le gagnant.</p></div><div class="card"><h3>4. <code>src/rendement.py</code></h3><p><b>Role :</b> Relit les runs dans MLflow et trace le F1 en fonction du budget, avec les references en pointilles.</p><p><b>Entree :</b> les runs de l'experience tp4-automl</p><p><b>Sortie :</b> reports/rendement.png</p><p><b>A retenir :</b> Rendement decroissant : 120 s n'a rien apporte de plus que 60 s.</p></div><div class="card"><h3>5. <code>src/inspecter.py</code></h3><p><b>Role :</b> Lit le journal de FLAML pour savoir ce qu'il a VRAIMENT essaye (familles, nombre d'essais, meilleur score).</p><p><b>Entree :</b> reports/flaml_60s.log</p><p><b>Sortie :</b> affichage : essais par famille + essai gagnant</p><p><b>A retenir :</b> Un modele AutoML n'est acceptable que si on peut expliquer ce qui a ete essaye.</p></div><div class="card"><h3>6. <code>src/fuite.py</code></h3><p><b>Role :</b> Demontre une fuite de donnees : on ajoute une colonne qui contient la reponse (numero de litige).</p><p><b>Entree :</b> data/transactions.csv + colonne piegee</p><p><b>Sortie :</b> affichage : F1 = 1.0 en test puis 0.0 'en production'</p><p><b>A retenir :</b> Un score parfait = presque toujours une fuite. L'AutoML ne la detecte pas.</p></div></div>
+
+<h2 id="resultats">Resultats</h2>
+<h3>F1 sur le meme jeu de test (1250 lignes)</h3>
+<div class="bar"><div class="lbl">Logistique (ref.)</div><div class="track"><div class="fill bad" style="width:74.1%"></div></div><div class="val">0.7407</div></div><div class="bar"><div class="lbl">FLAML 10 s (lgbm)</div><div class="track"><div class="fill " style="width:83.4%"></div></div><div class="val">0.834</div></div><div class="bar"><div class="lbl">FLAML 30 s (lgbm)</div><div class="track"><div class="fill " style="width:84.1%"></div></div><div class="val">0.8409</div></div><div class="bar"><div class="lbl">FLAML 60 s (xgboost)</div><div class="track"><div class="fill " style="width:85.8%"></div></div><div class="val">0.8582</div></div><div class="bar"><div class="lbl">FLAML 120 s (xgboost)</div><div class="track"><div class="fill " style="width:85.8%"></div></div><div class="val">0.8582</div></div><div class="bar"><div class="lbl">Manuel TP2 rf 500/16</div><div class="track"><div class="fill alt" style="width:86.7%"></div></div><div class="val">0.8669</div></div>
+<div class="callout "><strong>Rendement decroissant</strong>De 10 a 60 s : +0.024 de F1. De 60 a 120 s : <b>+0</b> (meme modele). Doubler le calcul ne paie pas toujours.</div>
+<h3>Ce que FLAML a vraiment essaye (60 s)</h3>
+<div class="tablewrap"><table><thead><tr><th>Famille</th><th>Essais</th><th>Meilleur F1 validation</th></tr></thead><tbody><tr><td>xgboost</td><td>25</td><td>0.8277 (gagnant)</td></tr><tr><td>lgbm</td><td>57</td><td>0.8262</td></tr><tr><td>xgb_limitdepth</td><td>18</td><td>0.8095</td></tr><tr><td>rf</td><td>25</td><td>0.7905</td></tr><tr><td>sgd</td><td>20</td><td>0.2787</td></tr><tr><td>extra_tree</td><td>8</td><td>0.1302</td></tr><tr><td>lrl1</td><td>1</td><td>0.0795</td></tr></tbody></table></div>
+<h3>La fuite de donnees</h3>
+<div class="bar"><div class="lbl">F1 test (colonne piegee)</div><div class="track"><div class="fill bad" style="width:100.0%"></div></div><div class="val">1</div></div><div class="bar"><div class="lbl">F1 'en production'</div><div class="track"><div class="fill bad" style="width:1.0%"></div></div><div class="val">0</div></div>
+<div class="callout bad"><strong>num_dossier_litige</strong>Cree des semaines APRES la fraude : il contient la reponse. Importance 4.0, toutes les autres 0. F1 parfait en test, 0 en production. L'AutoML ne s'est jamais demande si l'information existait au moment de decider.</div>
+
+<h2 id="lecons">Ce qu'il faut retenir</h2>
+<ul class="check"><li><b>Toujours une baseline</b> (logistique 0.74) : un score AutoML seul ne veut rien dire.</li><li><b>AutoML = baseline forte en minutes</b>, pas forcement le meilleur modele (0.858 vs 0.867 manuel). Ecart de 0.01 sur 134 fraudes = non significatif.</li><li><b>Exiger le journal des essais</b> : un modele AutoML n'est acceptable que si on peut dire ce qui a ete essaye.</li><li><b>Un score parfait sur un probleme difficile = presque toujours une fuite.</b> Verifier pour chaque colonne : existe-t-elle au moment de la decision ?</li><li><b>Restent a ta charge</b> : definir le probleme et la metrique, la qualite des donnees, la validation metier, le deploiement, le monitoring.</li><li><b>Local vs manage</b> : local = gratuit, reversible, donnees chez soi ; cloud = infra et deploiement integres, mais facture a l'heure et verrouillage fournisseur.</li></ul>
+
+<h2 id="pieges">Pieges</h2>
+<div class="callout warn"><strong>Le budget est un temps</strong>Les resultats dependent de la vitesse de la machine : seed=42 ne suffit pas a reproduire exactement.</div>
+<div class="callout warn"><strong>Cloud</strong>Entrainement facture a l'heure de noeud (minimum ~1 h), endpoint facture tant qu'il est deploye. Ne rien lancer sans credits.</div>
+
+<h2 id="commandes">Commandes a connaitre</h2>
+<pre>python src/references.py
+python src/automl.py 60          # FLAML : metric='f1', time_budget, log_type='all'
+python src/rendement.py ; python src/inspecter.py reports/flaml_60s.log ; python src/fuite.py</pre>
+
+<footer>5IASD - Deploiement d'IA 2026-2027 - fiche de revision generee le 7 novembre 2026.</footer>
+</main></body></html>

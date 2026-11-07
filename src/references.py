@@ -1,3 +1,11 @@
+"""TP4 - src/references.py
+
+ROLE      : Calcule les 2 points de comparaison : regression logistique (simple) et foret 500/16 (reglage manuel du TP2).
+ENTREE    : data/transactions.csv
+SORTIE    : 2 runs MLflow dans tp4-automl (F1 0.7407 et 0.8669)
+A RETENIR : Sans reference, un score d'AutoML ne veut rien dire.
+"""
+
 import time
 import pandas as pd
 import mlflow

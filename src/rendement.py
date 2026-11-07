@@ -1,3 +1,11 @@
+"""TP4 - src/rendement.py
+
+ROLE      : Relit les runs dans MLflow et trace le F1 en fonction du budget, avec les references en pointilles.
+ENTREE    : les runs de l'experience tp4-automl
+SORTIE    : reports/rendement.png
+A RETENIR : Rendement decroissant : 120 s n'a rien apporte de plus que 60 s.
+"""
+
 import mlflow
 import matplotlib
 matplotlib.use('Agg')                                          # pas de fenetre graphique

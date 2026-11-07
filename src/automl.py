@@ -1,3 +1,11 @@
+"""TP4 - src/automl.py
+
+ROLE      : Lance FLAML pendant un budget de temps donne : il essaie plusieurs familles de modeles et garde la meilleure.
+ENTREE    : data/transactions.csv + budget en secondes (argument)
+SORTIE    : reports/flaml_XXs.log (tous les essais) + un run MLflow flaml-XXs
+A RETENIR : metric='f1' = ce qu'on optimise ; le jeu de test ne sert qu'a la fin pour juger le gagnant.
+"""
+
 import sys
 import time
 from pathlib import Path

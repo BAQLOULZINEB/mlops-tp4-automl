@@ -1,3 +1,11 @@
+"""TP4 - src/fuite.py
+
+ROLE      : Demontre une fuite de donnees : on ajoute une colonne qui contient la reponse (numero de litige).
+ENTREE    : data/transactions.csv + colonne piegee
+SORTIE    : affichage : F1 = 1.0 en test puis 0.0 'en production'
+A RETENIR : Un score parfait = presque toujours une fuite. L'AutoML ne la detecte pas.
+"""
+
 import numpy as np
 import pandas as pd
 from flaml import AutoML
